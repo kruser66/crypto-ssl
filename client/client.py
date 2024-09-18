@@ -1,5 +1,6 @@
 import socket
 import ssl
+import time
 
 server_cert = 'server.crt'
 port = 65432
@@ -12,8 +13,10 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0) as sock:
     with context.wrap_socket(sock, server_hostname='127.0.0.1') as ssock:
         ssock.connect(('127.0.0.1', port))
         try:
-            ssock.sendall(b"Hello, server!")
-            response = ssock.recv(1024).decode()
-            print(response)
+            while True:
+                ssock.sendall(b"Hello, server!")
+                response = ssock.recv(1024).decode()
+                print(response)
+                time.sleep(10)  # Отправляем сообщение каждые 5 секунд
         finally:
             ssock.close()
