@@ -3,7 +3,6 @@ import ssl
 import asyncio
 import logging
 
-# Настройка логирования
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 server_key = 'server.key'
