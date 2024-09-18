@@ -1,13 +1,13 @@
-import socket
-import ssl
 import asyncio
 import logging
+import os
+import ssl
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 server_key = 'server.key'
 server_cert = 'server.crt'
-port = 65432
+port = int(os.getenv('PORT', 65432))
 
 context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
 context.load_cert_chain(certfile=server_cert, keyfile=server_key)
