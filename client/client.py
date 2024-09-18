@@ -14,9 +14,9 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0) as sock:
         ssock.connect(('127.0.0.1', port))
         try:
             while True:
-                ssock.sendall(b"Hello, server!")
+                ssock.sendall(b'Hello, server!')
                 response = ssock.recv(1024).decode()
                 print(response)
-                time.sleep(10)  # Отправляем сообщение каждые 5 секунд
+                time.sleep(10)
         finally:
             ssock.close()
