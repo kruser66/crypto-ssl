@@ -15,6 +15,8 @@ context = ssl.create_default_context()
 context.check_hostname = False
 context.verify_mode = ssl.CERT_NONE
 
+logging.info('Используемый протокол {}'.format(context.protocol.name))
+
 def connect_to_server(message, interval):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0) as sock:
         with context.wrap_socket(sock, server_hostname='127.0.0.1') as ssock:
@@ -25,8 +27,9 @@ def connect_to_server(message, interval):
                     response = ssock.recv(1024).decode()
                     logging.info(response)
                     time.sleep(interval)
-            finally:
-                ssock.close()
+            except (socket.error, ssl.SSLError) as e:
+                logging.error('Connection error: {}. Retrying in 10 seconds...'.format(e))
+                time.sleep(10)
 
 def main():
     parser = argparse.ArgumentParser(description='Client to send messages to the server.')

@@ -12,7 +12,8 @@ port = int(os.getenv('PORT', 65432))
 context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
 context.load_cert_chain(certfile=server_cert, keyfile=server_key)
 context.options |= ssl.OP_SINGLE_ECDH_USE
-# context.options |= ssl.OP_NO_TLSv1 | ssl.OP_NO_TLSv1_1  # Отключаем только TLS 1.0 и 1.1
+
+logging.info('Используемый протокол {}'.format(context.protocol.name))
 
 def handle_client(reader, writer):
     addr = writer.get_extra_info('peername')
