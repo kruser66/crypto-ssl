@@ -9,7 +9,7 @@ server_key = 'server.key'
 server_cert = 'server.crt'
 port = int(os.getenv('PORT', 65432))
 
-context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
+context = ssl.SSLContext(ssl.PROTOCOL_TLS)
 context.load_cert_chain(certfile=server_cert, keyfile=server_key)
 context.options |= ssl.OP_SINGLE_ECDH_USE
 

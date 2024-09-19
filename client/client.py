@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 server_cert = 'server.crt'
 port = int(os.getenv('PORT', 65432))
 
-context = ssl.create_default_context()
+context = ssl.SSLContext(ssl.PROTOCOL_TLS)
 context.check_hostname = False
 context.verify_mode = ssl.CERT_NONE
 
